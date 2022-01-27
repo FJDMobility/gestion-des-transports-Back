@@ -2,16 +2,31 @@ package fr.diginamic.gestiondestransportsBack.modeles;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+@Entity
 public class Voiture {
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String marque;
 	private String model;
 	private Integer nbrPlaces;
 	private String immatriculation;
 	
-	// lazy
+	@OneToMany(mappedBy ="voiture", fetch=FetchType.LAZY)
 	private List<Deplacement> deplacement;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name ="PERSONNE_ID")	
+	private Personne personne;
 
 	public Voiture() {
 		// TODO Auto-generated constructor stub

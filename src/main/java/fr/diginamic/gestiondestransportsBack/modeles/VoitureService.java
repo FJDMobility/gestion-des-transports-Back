@@ -1,8 +1,10 @@
 package fr.diginamic.gestiondestransportsBack.modeles;
 
+import javax.persistence.Entity;
+
 import fr.diginamic.gestiondestransportsBack.modeles.enums.StatutVoiture;
 import fr.diginamic.gestiondestransportsBack.modeles.enums.VoitureCategorie;
-
+@Entity
 public class VoitureService extends Voiture {
 
 	private VoitureCategorie categorie;
