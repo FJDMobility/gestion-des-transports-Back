@@ -1,8 +1,10 @@
 package fr.diginamic.gestiondestransportsBack.modeles;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "Chauffeur")
 public class Chauffeur extends Personne {
 
 
