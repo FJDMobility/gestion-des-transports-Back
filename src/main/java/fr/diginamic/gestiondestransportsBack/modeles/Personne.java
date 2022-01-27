@@ -2,8 +2,10 @@ package fr.diginamic.gestiondestransportsBack.modeles;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -17,28 +19,39 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "Personne")
 public class Personne {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@Column(name = "nom")
 	private String nom;
+	@Column(name = "prenom")
 	private String prenom;
+	@Column(name = "dateNaissance")
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dateNaissance;
+	@Column(name = "mail")
 	private String mail;
 	@ManyToOne
 	@JoinColumn(name = "PARTICIPANT_ID")
 	private Participant participant;
-	
+
 	@OneToMany(mappedBy = "personne", fetch = FetchType.LAZY)
-	private List<Voiture> voiture;
+	private Set<Voiture> voitures;
 
 	@OneToOne
-	@JoinColumn(name = "USER_ID", referencedColumnName = "id")
 	private User user;
-	
+
 	public Participant getParticipant() {
 		return participant;
 	}
@@ -49,12 +62,12 @@ public class Personne {
 
 	
 
-	public List<Voiture> getVoiture() {
-		return voiture;
+	public Set<Voiture> getVoitures() {
+		return voitures;
 	}
 
-	public void setVoiture(List<Voiture> voiture) {
-		this.voiture = voiture;
+	public void setVoitures(Set<Voiture> voitures) {
+		this.voitures = voitures;
 	}
 
 	public User getUser() {

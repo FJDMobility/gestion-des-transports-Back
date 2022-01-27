@@ -1,13 +1,18 @@
 package fr.diginamic.gestiondestransportsBack.modeles;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "covoiturage")
 public class Covoiturage extends Deplacement {
-
+	@Column(name = "villeDepart")
 	private String villeDepart;
+	@Column(name = "villeArrivee")
 	private String villeArrivee;
-	private Integer PlacesDisponibles;
+	@Column(name = "placesDisponibles")
+	private Integer placesDisponibles;
 
 	public Covoiturage() {
 		// TODO Auto-generated constructor stub
@@ -17,7 +22,7 @@ public class Covoiturage extends Deplacement {
 		super();
 		this.villeDepart = villeDepart;
 		this.villeArrivee = villeArrivee;
-		PlacesDisponibles = placesDisponibles;
+		this.placesDisponibles = placesDisponibles;
 	}
 
 	public String getVilleDepart() {
@@ -37,17 +42,17 @@ public class Covoiturage extends Deplacement {
 	}
 
 	public Integer getPlacesDisponibles() {
-		return PlacesDisponibles;
+		return placesDisponibles;
 	}
 
 	public void setPlacesDisponibles(Integer placesDisponibles) {
-		PlacesDisponibles = placesDisponibles;
+		this.placesDisponibles = placesDisponibles;
 	}
 
 	@Override
 	public String toString() {
-		return "Covoiturage [villeDepart=" + villeDepart + ", villeArrivee=" + villeArrivee + ", PlacesDisponibles="
-				+ PlacesDisponibles + "]";
+		return "Covoiturage [villeDepart=" + villeDepart + ", villeArrivee=" + villeArrivee + ", placesDisponibles="
+				+ placesDisponibles + "]";
 	}
 
 }

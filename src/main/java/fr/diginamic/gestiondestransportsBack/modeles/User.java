@@ -1,25 +1,35 @@
 package fr.diginamic.gestiondestransportsBack.modeles;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import fr.diginamic.gestiondestransportsBack.modeles.enums.RoleUser;
+
 @Entity
+@Table(name = "User")
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@Column(name = "username")
 	private String username;
+	@Column(name = "password")
 	private String password;
-	
+
 	@OneToOne
+	@JoinColumn(name = "USER_ID", referencedColumnName = "id")
 	private Personne personne;
+	@Enumerated(EnumType.STRING)
 	private RoleUser role;
 
-	
 	public User() {
 		// TODO Auto-generated constructor stub
 	}
