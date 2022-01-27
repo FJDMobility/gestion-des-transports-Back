@@ -72,4 +72,12 @@ public class Voiture {
 				+ ", immatriculation=" + immatriculation + "]";
 	}
 
+	public List<Deplacement> getDeplacement() {
+		return deplacement;
+	}
+
+	public void setDeplacement(List<Deplacement> deplacement) {
+		this.deplacement = deplacement;
+	}
+
 }
