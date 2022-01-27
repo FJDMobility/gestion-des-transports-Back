@@ -1,14 +1,25 @@
 package fr.diginamic.gestiondestransportsBack.modeles;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Table;
 
 import fr.diginamic.gestiondestransportsBack.modeles.enums.StatutVoiture;
 import fr.diginamic.gestiondestransportsBack.modeles.enums.VoitureCategorie;
-@Entity
-public class VoitureService extends Voiture {
 
+@Entity
+@Table(name = "VoitureService")
+public class VoitureService extends Voiture {
+	@Column(name = "categorie")
+	@Enumerated(EnumType.STRING)
 	private VoitureCategorie categorie;
+	@Column(name = "urlPhoto")
 	private String urlPhoto;
+	
+	@Column(name = "statut")
+	@Enumerated(EnumType.STRING)
 	private StatutVoiture statut;
 
 	public VoitureService() {

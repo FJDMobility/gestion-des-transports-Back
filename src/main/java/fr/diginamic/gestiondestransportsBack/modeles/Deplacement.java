@@ -3,25 +3,33 @@ package fr.diginamic.gestiondestransportsBack.modeles;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "Deplacement")
 public class Deplacement {
 
-	public Participant getParticipant() {
-		return participant;
-	}
-
-	public void setParticipant(Participant participant) {
-		this.participant = participant;
-	}
-
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@Column(name = "dateDepart")
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dateDepart;
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "VOITURE_ID")
@@ -39,7 +47,13 @@ public class Deplacement {
 		this.id = id;
 		this.dateDepart = dateDepart;
 	}
+	public Participant getParticipant() {
+		return participant;
+	}
 
+	public void setParticipant(Participant participant) {
+		this.participant = participant;
+	}
 	public Integer getId() {
 		return id;
 	}
