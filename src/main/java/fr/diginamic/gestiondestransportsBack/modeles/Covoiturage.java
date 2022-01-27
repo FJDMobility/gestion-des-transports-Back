@@ -1,5 +1,8 @@
 package fr.diginamic.gestiondestransportsBack.modeles;
 
+import javax.persistence.Entity;
+
+@Entity
 public class Covoiturage extends Deplacement {
 
 	private String villeDepart;

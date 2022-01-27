@@ -2,6 +2,8 @@ package fr.diginamic.gestiondestransportsBack.modeles;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+@Entity
 public class DeplacementSociete extends Deplacement {
 
 	private boolean avecChauffeur;

@@ -1,9 +1,15 @@
 package fr.diginamic.gestiondestransportsBack.modeles;
 
-import fr.diginamic.gestiondestransportsBack.modeles.enums.RolePerson;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+import fr.diginamic.gestiondestransportsBack.modeles.enums.RolePerson;
+@Entity
 public class Participant {
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private Integer idPersonne;
 	private Integer idDeplacement;
