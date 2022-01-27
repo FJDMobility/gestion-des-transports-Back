@@ -1,15 +1,25 @@
 package fr.diginamic.gestiondestransportsBack.modeles;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
 import fr.diginamic.gestiondestransportsBack.modeles.enums.RoleUser;
-
+@Entity
 public class User {
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String username;
 	private String password;
+	
+	@OneToOne
 	private Personne personne;
 	private RoleUser role;
 
+	
 	public User() {
 		// TODO Auto-generated constructor stub
 	}
