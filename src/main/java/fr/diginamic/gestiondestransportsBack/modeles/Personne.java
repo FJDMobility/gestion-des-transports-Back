@@ -31,36 +31,30 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Personne {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	protected Integer id;
+
 	@Column(name = "nom")
-	private String nom;
+	protected String nom;
+
 	@Column(name = "prenom")
-	private String prenom;
+	protected String prenom;
+
 	@Column(name = "dateNaissance")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date dateNaissance;
+	protected Date dateNaissance;
+
 	@Column(name = "mail")
-	private String mail;
-	@ManyToOne
-	@JoinColumn(name = "PARTICIPANT_ID")
-	private Participant participant;
+	protected String mail;
 
 	@OneToMany(mappedBy = "personne", fetch = FetchType.LAZY)
-	private Set<Voiture> voitures;
+	protected Set<Participant> participants;
 
-	@OneToOne
-	private User user;
+	@OneToMany(mappedBy = "personne", fetch = FetchType.LAZY)
+	protected Set<Voiture> voitures;
 
-	public Participant getParticipant() {
-		return participant;
-	}
-
-	public void setParticipant(Participant participant) {
-		this.participant = participant;
-	}
-
-	
+	@OneToOne(mappedBy = "personne")
+	protected User user;
 
 	public Set<Voiture> getVoitures() {
 		return voitures;
@@ -83,8 +77,12 @@ public class Personne {
 	}
 
 	public Personne(Integer id, String nom, String prenom, Date dateNaissance, String mail) {
-		super();
+		this(nom,prenom,dateNaissance,mail);
 		this.id = id;
+	}
+	
+	public Personne(String nom, String prenom, Date dateNaissance, String mail) {
+		super();
 		this.nom = nom;
 		this.prenom = prenom;
 		this.dateNaissance = dateNaissance;
@@ -131,10 +129,13 @@ public class Personne {
 		this.mail = mail;
 	}
 
-	@Override
-	public String toString() {
-		return "Personne [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", dateNaissance=" + dateNaissance
-				+ ", mail=" + mail + "]";
+	public Set<Participant> getParticipants() {
+		return participants;
 	}
 
+	public void setParticipants(Set<Participant> participants) {
+		this.participants = participants;
+	}
+	
+	
 }

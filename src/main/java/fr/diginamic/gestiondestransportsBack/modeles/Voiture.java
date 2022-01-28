@@ -22,38 +22,22 @@ import javax.persistence.Table;
 public class Voiture {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	protected Integer id;
 	@Column(name = "marque")
-	private String marque;
+	protected String marque;
 	@Column(name = "model")
-	private String model;
-	@Column(name = "nbrPlaces")
-	private Integer nbrPlaces;
+	protected String model;
+	@Column(name = "nbPlaces")
+	protected Integer nbPlaces;
 	@Column(name = "immatriculation")
-	private String immatriculation;
-
-	public List<Deplacement> getDeplacement() {
-		return deplacement;
-	}
-
-	public void setDeplacement(List<Deplacement> deplacement) {
-		this.deplacement = deplacement;
-	}
-
-	public Personne getPersonne() {
-		return personne;
-	}
-
-	public void setPersonne(Personne personne) {
-		this.personne = personne;
-	}
+	protected String immatriculation;
 
 	@OneToMany(mappedBy = "voiture", fetch = FetchType.LAZY)
-	private List<Deplacement> deplacement;
+	protected List<Deplacement> deplacements;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "PERSONNE_ID")
-	private Personne personne;
+	@JoinColumn(name = "idPersonne")
+	protected Personne personne;
 
 	public Voiture() {
 		// TODO Auto-generated constructor stub
@@ -64,7 +48,7 @@ public class Voiture {
 		this.id = id;
 		this.marque = marque;
 		this.model = model;
-		this.nbrPlaces = nbrPlaces;
+		this.nbPlaces = nbrPlaces;
 		this.immatriculation = immatriculation;
 	}
 
@@ -93,11 +77,11 @@ public class Voiture {
 	}
 
 	public Integer getNbrPlaces() {
-		return nbrPlaces;
+		return nbPlaces;
 	}
 
 	public void setNbrPlaces(Integer nbrPlaces) {
-		this.nbrPlaces = nbrPlaces;
+		this.nbPlaces = nbrPlaces;
 	}
 
 	public String getImmatriculation() {
@@ -108,10 +92,21 @@ public class Voiture {
 		this.immatriculation = immatriculation;
 	}
 
-	@Override
-	public String toString() {
-		return "Voiture [id=" + id + ", marque=" + marque + ", model=" + model + ", nbrPlaces=" + nbrPlaces
-				+ ", immatriculation=" + immatriculation + "]";
+	public List<Deplacement> getDeplacement() {
+		return deplacements;
 	}
+
+	public void setDeplacement(List<Deplacement> deplacements) {
+		this.deplacements = deplacements;
+	}
+	
+	public Personne getPersonne() {
+		return personne;
+	}
+
+	public void setPersonne(Personne personne) {
+		this.personne = personne;
+	}
+
 
 }
