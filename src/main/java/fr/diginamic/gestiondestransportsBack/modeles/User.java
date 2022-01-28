@@ -25,7 +25,7 @@ public class User {
 	private String password;
 
 	@OneToOne
-	@JoinColumn(name = "USER_ID", referencedColumnName = "id")
+	@JoinColumn(name = "idPersonne", referencedColumnName = "id")
 	private Personne personne;
 	@Enumerated(EnumType.STRING)
 	private RoleUser role;

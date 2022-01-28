@@ -1,5 +1,7 @@
 package fr.diginamic.gestiondestransportsBack.modeles;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -24,6 +26,15 @@ public class Covoiturage extends Deplacement {
 		this.villeArrivee = villeArrivee;
 		this.placesDisponibles = placesDisponibles;
 	}
+	
+	public Covoiturage(Integer id, Date dateDepart, Voiture voiture, String villeDepart, String villeArrivee, Integer placesDisponibles) {
+		super(id, dateDepart, voiture);
+		this.villeDepart = villeDepart;
+		this.villeArrivee = villeArrivee;
+		this.placesDisponibles = placesDisponibles;
+	}
+	
+	
 
 	public String getVilleDepart() {
 		return villeDepart;

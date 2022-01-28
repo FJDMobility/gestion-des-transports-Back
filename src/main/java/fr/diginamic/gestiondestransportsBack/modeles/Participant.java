@@ -1,14 +1,13 @@
 package fr.diginamic.gestiondestransportsBack.modeles;
 
-import java.util.Set;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import fr.diginamic.gestiondestransportsBack.modeles.enums.RolePerson;
@@ -19,25 +18,32 @@ public class Participant {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Column(name = "idPersonne")
-	private Integer idPersonne;
-	@Column(name = "idDeplacement")
-	private Integer idDeplacement;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "idDeplacement")
+	private Deplacement deplacement;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "idPerson")
+	private Personne personne;
+	
 	@Column(name = "rolePersonne")
 	private RolePerson rolePersonne;
-	@OneToMany(mappedBy = "participant", fetch = FetchType.LAZY)
-	private Set<Personne> personnes;
 
 	public Participant() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Participant(Integer id, Integer idPersonne, Integer idDeplacement, RolePerson rolePersonne) {
+	public Participant(Integer id, RolePerson rolePersonne) {
 		super();
 		this.id = id;
-		this.idPersonne = idPersonne;
-		this.idDeplacement = idDeplacement;
 		this.rolePersonne = rolePersonne;
+	}
+	
+	public Participant(Integer id, RolePerson rolePersonne, Personne personne, Deplacement deplacement) {
+		this(id, rolePersonne);
+		this.personne = personne;
+		this.deplacement = deplacement;
 	}
 
 	public Integer getId() {
@@ -48,22 +54,6 @@ public class Participant {
 		this.id = id;
 	}
 
-	public Integer getIdPersonne() {
-		return idPersonne;
-	}
-
-	public void setIdPersonne(Integer idPersonne) {
-		this.idPersonne = idPersonne;
-	}
-
-	public Integer getIdDeplacement() {
-		return idDeplacement;
-	}
-
-	public void setIdDeplacement(Integer idDeplacement) {
-		this.idDeplacement = idDeplacement;
-	}
-
 	public RolePerson getRolePersonne() {
 		return rolePersonne;
 	}
@@ -72,19 +62,20 @@ public class Participant {
 		this.rolePersonne = rolePersonne;
 	}
 
-	
-	public Set<Personne> getPersonnes() {
-		return personnes;
+	public Deplacement getDeplacement() {
+		return deplacement;
 	}
 
-	public void setPersonnes(Set<Personne> personnes) {
-		this.personnes = personnes;
+	public void setDeplacement(Deplacement deplacement) {
+		this.deplacement = deplacement;
 	}
 
-	@Override
-	public String toString() {
-		return "Participant [id=" + id + ", idPersonne=" + idPersonne + ", idDeplacement=" + idDeplacement
-				+ ", rolePersonne=" + rolePersonne + "]";
+	public Personne getPersonne() {
+		return personne;
+	}
+
+	public void setPersonne(Personne personne) {
+		this.personne = personne;
 	}
 
 }
