@@ -1,5 +1,7 @@
 package fr.diginamic.gestiondestransportsBack.modeles;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -9,7 +11,11 @@ public class Chauffeur extends Personne {
 
 
 	public Chauffeur() {
-		// TODO Auto-generated constructor stub
+		super();
+	}
+	
+	public Chauffeur(String nom, String prenom, Date dateNaissance, String mail) {
+		super(nom, prenom, dateNaissance, mail);
 	}
 
 	@Override

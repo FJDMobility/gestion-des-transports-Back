@@ -13,15 +13,23 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name = "DeplacementSociete")
 public class DeplacementSociete extends Deplacement {
+	
 	@Column(name = "avecChauffeur")
 	private boolean avecChauffeur;
+	
 	@Column(name = "dateArrivee")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dateArrivee;
 
 	public DeplacementSociete() {
-		// TODO Auto-generated constructor stub
+		super();
+	}
+	
+	public DeplacementSociete(Integer id, Date dateDepart, Voiture voiture, boolean avecChauffeur, Date dateArrivee) {
+		super(id, dateDepart, voiture);
+		this.avecChauffeur=avecChauffeur;
+		this.dateArrivee = dateArrivee;
 	}
 
 	public boolean isAvecChauffeur() {

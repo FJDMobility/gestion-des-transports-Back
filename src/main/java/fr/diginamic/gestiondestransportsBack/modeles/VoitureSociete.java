@@ -11,23 +11,24 @@ import fr.diginamic.gestiondestransportsBack.modeles.enums.VoitureCategorie;
 
 @Entity
 @Table(name = "VoitureService")
-public class VoitureService extends Voiture {
+public class VoitureSociete extends Voiture {
 	@Column(name = "categorie")
 	@Enumerated(EnumType.STRING)
 	private VoitureCategorie categorie;
 	@Column(name = "urlPhoto")
 	private String urlPhoto;
-	
+
 	@Column(name = "statut")
-	@Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.ORDINAL)
 	private StatutVoiture statut;
 
-	public VoitureService() {
+	public VoitureSociete() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public VoitureService(VoitureCategorie categorie, String urlPhoto, StatutVoiture statut) {
-		super();
+	public VoitureSociete(Integer id, String marque, String model, Integer nbPlaces, String immatriculation,
+			VoitureCategorie categorie, String urlPhoto, StatutVoiture statut) {
+		super(id, marque, model, nbPlaces, immatriculation);
 		this.categorie = categorie;
 		this.urlPhoto = urlPhoto;
 		this.statut = statut;

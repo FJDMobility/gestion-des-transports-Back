@@ -13,28 +13,27 @@ public class Covoiturage extends Deplacement {
 	private String villeDepart;
 	@Column(name = "villeArrivee")
 	private String villeArrivee;
-	@Column(name = "placesDisponibles")
-	private Integer placesDisponibles;
+	@Column(name = "nbPlacesDisponibles")
+	private Integer nbPlacesDisponibles;
 
 	public Covoiturage() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
 
-	public Covoiturage(String villeDepart, String villeArrivee, Integer placesDisponibles) {
+	public Covoiturage(String villeDepart, String villeArrivee, Integer nbPlacesDisponibles) {
 		super();
 		this.villeDepart = villeDepart;
 		this.villeArrivee = villeArrivee;
-		this.placesDisponibles = placesDisponibles;
+		this.nbPlacesDisponibles = nbPlacesDisponibles;
 	}
-	
-	public Covoiturage(Integer id, Date dateDepart, Voiture voiture, String villeDepart, String villeArrivee, Integer placesDisponibles) {
+
+	public Covoiturage(Integer id, Date dateDepart, Voiture voiture, String villeDepart, String villeArrivee,
+			Integer nbPlacesDisponibles) {
 		super(id, dateDepart, voiture);
 		this.villeDepart = villeDepart;
 		this.villeArrivee = villeArrivee;
-		this.placesDisponibles = placesDisponibles;
+		this.nbPlacesDisponibles = nbPlacesDisponibles;
 	}
-	
-	
 
 	public String getVilleDepart() {
 		return villeDepart;
@@ -52,18 +51,18 @@ public class Covoiturage extends Deplacement {
 		this.villeArrivee = villeArrivee;
 	}
 
-	public Integer getPlacesDisponibles() {
-		return placesDisponibles;
+	public Integer getNbPlacesDisponibles() {
+		return nbPlacesDisponibles;
 	}
 
-	public void setPlacesDisponibles(Integer placesDisponibles) {
-		this.placesDisponibles = placesDisponibles;
+	public void setNbPlacesDisponibles(Integer nbPlacesDisponibles) {
+		this.nbPlacesDisponibles = nbPlacesDisponibles;
 	}
 
 	@Override
 	public String toString() {
 		return "Covoiturage [villeDepart=" + villeDepart + ", villeArrivee=" + villeArrivee + ", placesDisponibles="
-				+ placesDisponibles + "]";
+				+ nbPlacesDisponibles + "]";
 	}
 
 }
