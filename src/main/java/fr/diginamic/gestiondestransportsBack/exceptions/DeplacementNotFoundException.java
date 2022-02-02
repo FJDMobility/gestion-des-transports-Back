@@ -1,32 +1,32 @@
 package fr.diginamic.gestiondestransportsBack.exceptions;
 
-public class DeplacementNotFoundExceptions extends TransportException {
+public class DeplacementNotFoundException extends TransportException {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public DeplacementNotFoundExceptions() {
+	public DeplacementNotFoundException() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public DeplacementNotFoundExceptions(String message) {
+	public DeplacementNotFoundException(String message) {
 		super(message);
 		// TODO Auto-generated constructor stub
 	}
 
-	public DeplacementNotFoundExceptions(Throwable cause) {
+	public DeplacementNotFoundException(Throwable cause) {
 		super(cause);
 		// TODO Auto-generated constructor stub
 	}
 
-	public DeplacementNotFoundExceptions(String message, Throwable cause) {
+	public DeplacementNotFoundException(String message, Throwable cause) {
 		super(message, cause);
 		// TODO Auto-generated constructor stub
 	}
 
-	public DeplacementNotFoundExceptions(String message, Throwable cause, boolean enableSuppression,
+	public DeplacementNotFoundException(String message, Throwable cause, boolean enableSuppression,
 			boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
 		// TODO Auto-generated constructor stub

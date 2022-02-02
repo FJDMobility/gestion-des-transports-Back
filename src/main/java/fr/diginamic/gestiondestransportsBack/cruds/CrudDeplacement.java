@@ -6,4 +6,5 @@ import fr.diginamic.gestiondestransportsBack.modeles.Deplacement;
 
 public interface CrudDeplacement extends CrudRepository<Deplacement, Integer>{
 
+	
 }

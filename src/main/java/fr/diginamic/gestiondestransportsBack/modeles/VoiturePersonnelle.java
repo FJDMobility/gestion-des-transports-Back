@@ -8,7 +8,12 @@ import javax.persistence.Table;
 public class VoiturePersonnelle extends Voiture{
 
 	public VoiturePersonnelle() {
-		// TODO Auto-generated constructor stub
+		super();
+	}
+	
+	public VoiturePersonnelle(Integer id, String marque, String model, Integer nbPlaces, String immatriculation, Personne personne) {
+		super(id, marque, model, nbPlaces,immatriculation, personne);
+		
 	}
 
 }

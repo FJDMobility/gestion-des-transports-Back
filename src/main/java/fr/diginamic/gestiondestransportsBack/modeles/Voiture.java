@@ -16,10 +16,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "Voiture")
-public class Voiture {
+public abstract class Voiture {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Integer id;
@@ -27,14 +30,16 @@ public class Voiture {
 	protected String marque;
 	@Column(name = "model")
 	protected String model;
-	@Column(name = "nbPlaces")
+	@Column(name = "nbPlace")
 	protected Integer nbPlaces;
 	@Column(name = "immatriculation")
 	protected String immatriculation;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "voiture", fetch = FetchType.LAZY)
 	protected List<Deplacement> deplacements;
 
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "idPersonne")
 	protected Personne personne;
@@ -43,13 +48,19 @@ public class Voiture {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Voiture(Integer id, String marque, String model, Integer nbrPlaces, String immatriculation) {
+	public Voiture(Integer id, String marque, String model, Integer nbPlaces, String immatriculation) {
 		super();
 		this.id = id;
 		this.marque = marque;
 		this.model = model;
-		this.nbPlaces = nbrPlaces;
+		this.nbPlaces = nbPlaces;
 		this.immatriculation = immatriculation;
+	}
+
+	public Voiture(Integer id, String marque, String model, Integer nbPlaces, String immatriculation,
+			Personne personne) {
+		this(id, marque, model, nbPlaces, immatriculation);
+		this.personne = personne;
 	}
 
 	public Integer getId() {
@@ -76,12 +87,12 @@ public class Voiture {
 		this.model = model;
 	}
 
-	public Integer getNbrPlaces() {
+	public Integer getNbPlaces() {
 		return nbPlaces;
 	}
 
-	public void setNbrPlaces(Integer nbrPlaces) {
-		this.nbPlaces = nbrPlaces;
+	public void setNbPlaces(Integer nbPlaces) {
+		this.nbPlaces = nbPlaces;
 	}
 
 	public String getImmatriculation() {
@@ -92,14 +103,6 @@ public class Voiture {
 		this.immatriculation = immatriculation;
 	}
 
-	public List<Deplacement> getDeplacement() {
-		return deplacements;
-	}
-
-	public void setDeplacement(List<Deplacement> deplacements) {
-		this.deplacements = deplacements;
-	}
-	
 	public Personne getPersonne() {
 		return personne;
 	}
@@ -108,5 +111,12 @@ public class Voiture {
 		this.personne = personne;
 	}
 
+	public List<Deplacement> getDeplacements() {
+		return deplacements;
+	}
+
+	public void setDeplacements(List<Deplacement> deplacements) {
+		this.deplacements = deplacements;
+	}
 
 }

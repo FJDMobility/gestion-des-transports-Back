@@ -25,6 +25,8 @@ import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "Personne")
@@ -47,30 +49,19 @@ public class Personne {
 	@Column(name = "mail")
 	protected String mail;
 
-	@OneToMany(mappedBy = "personne", fetch = FetchType.LAZY)
+	@JsonIgnore
+	@OneToMany(mappedBy = "personne", fetch = FetchType.LAZY, orphanRemoval = true)
 	protected Set<Participant> participants;
 
-	@OneToMany(mappedBy = "personne", fetch = FetchType.LAZY)
+	@JsonIgnore
+	@OneToMany(mappedBy = "personne", fetch = FetchType.LAZY)	
 	protected Set<Voiture> voitures;
-
-	@OneToOne(mappedBy = "personne")
+	
+	@JsonIgnore
+	@OneToOne(mappedBy = "personne", fetch = FetchType.LAZY)
 	protected User user;
 
-	public Set<Voiture> getVoitures() {
-		return voitures;
-	}
 
-	public void setVoitures(Set<Voiture> voitures) {
-		this.voitures = voitures;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
 
 	public Personne() {
 		// TODO Auto-generated constructor stub
@@ -135,6 +126,28 @@ public class Personne {
 
 	public void setParticipants(Set<Participant> participants) {
 		this.participants = participants;
+	}
+	
+	public Set<Voiture> getVoitures() {
+		return voitures;
+	}
+
+	public void setVoitures(Set<Voiture> voitures) {
+		this.voitures = voitures;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	@Override
+	public String toString() {
+		return "Personne, id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", dateNaissance=" + dateNaissance
+				+ ", mail=" + mail + "]";
 	}
 	
 	
