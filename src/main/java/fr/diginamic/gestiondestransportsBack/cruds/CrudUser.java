@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import fr.diginamic.gestiondestransportsBack.modeles.User;
 
-public interface CrudUser extends CrudRepository<User, Long> {
+public interface CrudUser extends CrudRepository<User, Integer> {
 
 	@Query("SELECT u FROM User u WHERE u.username = :username")
 	public User getUserByUsername(String username);

@@ -47,19 +47,29 @@ public class SpringConfigSecurity extends WebSecurityConfigurerAdapter {
  
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-            .antMatchers("/").hasAnyAuthority("USER", "ADMIN")
-            .antMatchers("/new").hasAnyAuthority("ADMIN", "USER")
-            .antMatchers("/edit/**").hasAnyAuthority("ADMIN", "USER")
-            .antMatchers("/delete/**").hasAuthority("ADMIN")
-            .anyRequest().authenticated()
-            .and()
-            .formLogin().permitAll()
-            .and()
-            .logout().permitAll()
-            .and()
-            .exceptionHandling().accessDeniedPage("/403")
-            .and().httpBasic().and().csrf().disable()
-            ;
+//        http.authorizeRequests()
+//            .antMatchers("/").hasAnyAuthority("USER", "ADMIN")
+//            .antMatchers("/new").hasAnyAuthority("ADMIN", "USER")
+//            .antMatchers("/edit/**").hasAnyAuthority("ADMIN", "USER")
+//            .antMatchers("/delete/**").hasAuthority("ADMIN")
+//            .anyRequest().authenticated()
+//            .and()
+//            .formLogin().permitAll()
+//            .and()
+//            .logout().permitAll()
+//            .and()
+//            .exceptionHandling().accessDeniedPage("/403")
+//            .and().httpBasic().and().csrf().disable()
+//            ;
+    	
+    	 http.csrf().disable()
+         .formLogin().loginProcessingUrl("/login").and()
+         .logout().logoutUrl("/logout").invalidateHttpSession(true).and()
+         .authorizeRequests()
+         .antMatchers("/login").permitAll()
+         .antMatchers("/logout").permitAll()
+         // authorise toutes les connexions REST sur /api
+         .antMatchers("/**").permitAll()
+         .anyRequest().authenticated().and().httpBasic(); 
     }
 } 

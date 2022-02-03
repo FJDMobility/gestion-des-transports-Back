@@ -89,4 +89,10 @@ public class Participant {
 		this.personne = personne;
 	}
 
+	@Override
+	public String toString() {
+		return "Participant [id=" + id + ", deplacement=" + deplacement.getId() + ", personne=" + personne.getId() + ", rolePersonne="
+				+ rolePersonne + "]";
+	}
+
 }
