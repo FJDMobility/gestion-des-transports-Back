@@ -1,5 +1,7 @@
 package fr.diginamic.gestiondestransportsBack.cruds;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -13,5 +15,9 @@ public interface CrudParticipant extends CrudRepository<Participant, Integer>{
 	@Modifying
 	@Query("DELETE FROM Participant pa WHERE pa.personne=:personne AND pa.deplacement= :covoiturage")
 	void deleteByPersonAndCovoiturage(Personne personne, Covoiturage covoiturage);
+
+	
+	@Query("SELECT pa FROM Participant pa WHERE pa.deplacement = :covoiturage")
+	List<Participant> getParticipantByCovoiturage(Covoiturage covoiturage);
 
 }

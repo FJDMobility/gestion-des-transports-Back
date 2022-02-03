@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import fr.diginamic.gestiondestransportsBack.cruds.CrudCovoiturage;
 import fr.diginamic.gestiondestransportsBack.cruds.CrudParticipant;
-import fr.diginamic.gestiondestransportsBack.dto.CovoiturageDTO;
+import fr.diginamic.gestiondestransportsBack.dto.CovoiturageDto;
 import fr.diginamic.gestiondestransportsBack.exceptions.CovoiturageNotFoundException;
 import fr.diginamic.gestiondestransportsBack.modeles.Covoiturage;
 import fr.diginamic.gestiondestransportsBack.modeles.Personne;
@@ -32,7 +32,7 @@ public class OrganisateurService {
 		return crudCovoiturage.getCovituragesByPersAndRole(user.getPersonne(), RolePerson.PASSAGER);
 	}
 
-	public CovoiturageDTO getReservationDetails(Authentication authentication, Integer covoiturageId)
+	public CovoiturageDto getReservationDetails(Authentication authentication, Integer covoiturageId)
 			throws CovoiturageNotFoundException {
 
 		User user = MyUserDetails.getCurrentUser(authentication);
@@ -41,18 +41,18 @@ public class OrganisateurService {
 			throw new CovoiturageNotFoundException("Covoiturage non trouvé, id : " + covoiturageId);
 		}
 		Covoiturage covoiturage = optionalCovoiturage.get();
-		CovoiturageDTO covoiturageDTO = new CovoiturageDTO(covoiturage, user);
+		CovoiturageDto covoiturageDTO = new CovoiturageDto(covoiturage);
 		return covoiturageDTO;
 	}
 
-	public CovoiturageDTO annulerReservation(Authentication authentication, Integer covoiturageId) {
+	public CovoiturageDto annulerReservation(Authentication authentication, Integer covoiturageId) {
 		User currentUser = MyUserDetails.getCurrentUser(authentication);
 		Covoiturage covoiturage = crudCovoiturage.findById(covoiturageId).get();
 		Personne currentPersonne = currentUser.getPersonne();
 		crudParticipant.deleteByPersonAndCovoiturage(currentPersonne, covoiturage);		
 		covoiturage.setNbPlacesDisponibles(covoiturage.getNbPlacesDisponibles() + 1);
 		crudCovoiturage.save(covoiturage);
-		CovoiturageDTO covoiturageDTO = new CovoiturageDTO(covoiturage, currentUser);
+		CovoiturageDto covoiturageDTO = new CovoiturageDto(covoiturage);
 		return covoiturageDTO;
 	}
 }
