@@ -1,16 +1,16 @@
-package fr.diginamic.gestiondestransportsBack.services;
+package fr.diginamic.gestiondestransportsBack.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import fr.diginamic.gestiondestransportsBack.cruds.CrudUser;
 import fr.diginamic.gestiondestransportsBack.modeles.User;
-import fr.diginamic.gestiondestransportsBack.security.MyUserDetails;
 
-
-public class UserDetailsServiceImpl implements UserDetailsService {
+@Service
+public class UserService implements UserDetailsService {
  
     @Autowired
     private CrudUser userRepository;

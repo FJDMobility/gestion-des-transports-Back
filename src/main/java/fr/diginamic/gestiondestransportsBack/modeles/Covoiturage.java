@@ -1,10 +1,15 @@
 package fr.diginamic.gestiondestransportsBack.modeles;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
+import fr.diginamic.gestiondestransportsBack.modeles.enums.RolePerson;
 
 @Entity
 @Table(name = "covoiturage")
@@ -64,5 +69,5 @@ public class Covoiturage extends Deplacement {
 		return "Covoiturage [villeDepart=" + villeDepart + ", villeArrivee=" + villeArrivee + ", placesDisponibles="
 				+ nbPlacesDisponibles + "]";
 	}
-
+	
 }
