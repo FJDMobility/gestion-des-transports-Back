@@ -24,8 +24,8 @@ import fr.diginamic.gestiondestransportsBack.modeles.Personne;
 import fr.diginamic.gestiondestransportsBack.modeles.Role;
 import fr.diginamic.gestiondestransportsBack.modeles.User;
 import fr.diginamic.gestiondestransportsBack.modeles.Voiture;
-import fr.diginamic.gestiondestransportsBack.modeles.VoiturePersonnelle;
 import fr.diginamic.gestiondestransportsBack.modeles.enums.RolePerson;
+import fr.diginamic.gestiondestransportsBack.services.VoiturePersonnelle;
 
 @SpringBootApplication
 public class GestionDesTransportsBackApplication implements ApplicationRunner {

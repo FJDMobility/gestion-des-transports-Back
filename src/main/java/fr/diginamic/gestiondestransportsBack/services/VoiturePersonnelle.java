@@ -1,7 +1,10 @@
-package fr.diginamic.gestiondestransportsBack.modeles;
+package fr.diginamic.gestiondestransportsBack.services;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
+import fr.diginamic.gestiondestransportsBack.modeles.Personne;
+import fr.diginamic.gestiondestransportsBack.modeles.Voiture;
 
 @Entity
 @Table(name = "VoiturePersonnelle")

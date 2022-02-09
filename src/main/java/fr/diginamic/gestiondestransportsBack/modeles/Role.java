@@ -6,31 +6,31 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
- 
+
 @Entity
 @Table(name = "roles")
 public class Role {
-    @Id
-    @Column(name = "role_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+	@Id
+	@Column(name = "role_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
-    public Role() {
+	@Column(name = "roleName")
+	private String name;
+
+	public Role() {
 		// TODO Auto-generated constructor stub
 	}
-    
-    public Role(Integer id, String name) {
+
+	public Role(Integer id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
 	}
 
-	@Column(name = "roleName")
-    private String name;
-
-    public Integer getId() {
-        return id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
 	public String getName() {
 		return name;
@@ -43,6 +43,5 @@ public class Role {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-    
-    
+
 }

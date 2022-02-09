@@ -54,24 +54,22 @@ public class Personne {
 	protected Set<Participant> participants;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "personne", fetch = FetchType.LAZY)	
+	@OneToMany(mappedBy = "personne", fetch = FetchType.LAZY)
 	protected Set<Voiture> voitures;
-	
+
 	@JsonIgnore
 	@OneToOne(mappedBy = "personne", fetch = FetchType.LAZY)
 	protected User user;
-
-
 
 	public Personne() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public Personne(Integer id, String nom, String prenom, Date dateNaissance, String mail) {
-		this(nom,prenom,dateNaissance,mail);
+		this(nom, prenom, dateNaissance, mail);
 		this.id = id;
 	}
-	
+
 	public Personne(String nom, String prenom, Date dateNaissance, String mail) {
 		super();
 		this.nom = nom;
@@ -127,7 +125,7 @@ public class Personne {
 	public void setParticipants(Set<Participant> participants) {
 		this.participants = participants;
 	}
-	
+
 	public Set<Voiture> getVoitures() {
 		return voitures;
 	}
@@ -149,6 +147,22 @@ public class Personne {
 		return "Personne, id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", dateNaissance=" + dateNaissance
 				+ ", mail=" + mail + "]";
 	}
-	
-	
+
+	@Override
+	public boolean equals(Object personne) {
+		if (personne == null) {
+			return false;
+		}
+
+		if (personne.getClass() != this.getClass()) {
+			return false;
+		}
+
+		final Personne other = (Personne) personne;
+		if (this.id == other.getId() && this.nom.equals(other.getNom()) && this.mail.equals(other.getMail())) {
+			return true;
+		}
+		return false;
+	}
+
 }

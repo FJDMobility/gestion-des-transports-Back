@@ -11,26 +11,25 @@ import fr.diginamic.gestiondestransportsBack.modeles.Personne;
 import fr.diginamic.gestiondestransportsBack.modeles.User;
 import fr.diginamic.gestiondestransportsBack.modeles.Voiture;
 import fr.diginamic.gestiondestransportsBack.modeles.enums.RolePerson;
-import fr.diginamic.gestiondestransportsBack.services.CovoiturageService;
 
 public class CovoiturageDto {
 
 	private Integer id;
 	private Date dateDepart;
 	private String villeDepart;
-	private String villeArrive;
+	private String villeArrivee;
 	private String status;
 	private Integer placesDisponibles;
 	private Voiture voiture;
 	private Personne organisateur;
-	private Set<Personne> passagers;
+	private Set<Personne> participant;
 
 
 	public CovoiturageDto(Covoiturage covoiturage) {
 		this.id = covoiturage.getId();
 		this.dateDepart = covoiturage.getDateDepart();
 		this.villeDepart = covoiturage.getVilleDepart();
-		this.villeArrive = covoiturage.getVilleArrivee();
+		this.villeArrivee = covoiturage.getVilleArrivee();
 		this.status = "ouvert";
 		this.placesDisponibles = covoiturage.getNbPlacesDisponibles();
 		this.voiture = covoiturage.getVoiture();
@@ -60,14 +59,6 @@ public class CovoiturageDto {
 		this.villeDepart = villeDepart;
 	}
 
-	public String getVilleArrive() {
-		return villeArrive;
-	}
-
-	public void setVilleArrive(String villeArrive) {
-		this.villeArrive = villeArrive;
-	}
-
 	public Voiture getVoiture() {
 		return voiture;
 	}
@@ -83,16 +74,6 @@ public class CovoiturageDto {
 	public void setOrganisateur(Personne organisateur) {
 		this.organisateur = organisateur;
 	}
-
-	public Set<Personne> getPassagers() {
-		return passagers;
-	}
-
-	public void setPassagers(Set<Personne> passagers) {
-		this.passagers = passagers;
-	}
-
-
 
 	public String getStatus() {
 		return status;
@@ -110,35 +91,26 @@ public class CovoiturageDto {
 		this.placesDisponibles = placesDisponibles;
 	}
 
+	public String getVilleArrivee() {
+		return villeArrivee;
+	}
+
+	public void setVilleArrivee(String villeArrivee) {
+		this.villeArrivee = villeArrivee;
+	}
+
+	public Set<Personne> getParticipant() {
+		return participant;
+	}
+
+	public void setParticipant(Set<Personne> participant) {
+		this.participant = participant;
+	}
+
 	@Override
 	public String toString() {
 		return "CovoiturageDTO [id=" + id + ", dateDepart=" + dateDepart + ", villeDepart=" + villeDepart
-				+ ", villeArrive=" + villeArrive + ", voiture=" + voiture + ", Organisateur=" + organisateur
-				+ ", passagers=" + passagers + "]";
+				+ ", villeArrive=" + villeArrivee + ", voiture=" + voiture + ", Organisateur=" + organisateur
+				+ ", passagers=" + participant + "]";
 	}
-	
-	public Personne extractOrganisateur(List<Participant> participants) {
-		System.out.println(this.id);
-		System.out.println(participants.size() + " participants");
-		participants.forEach(p -> System.out.println(p));
-		participants.stream().forEach(p -> System.out.println(p.getPersonne().getId() +" " + p.getRolePersonne()));
-		return participants.stream().filter(p -> p.getRolePersonne() == RolePerson.ORGANISATEUR)
-				.map(p -> p.getPersonne()).findFirst().get();
-	}
-	
-	public Set<Personne> extractPassagers(List<Participant> participants, User user) {
-		return participants.stream().filter(p -> p.getRolePersonne() == RolePerson.PASSAGER)
-				.map(p -> p.getPersonne())
-				.filter(personne -> personne.getId() != user.getPersonne().getId())
-				.collect(Collectors.toSet());
-	}
-
-	public void setPassagers(List<Participant> participants, User user) {
-		this.passagers = extractPassagers(participants, user);		
-	}
-
-	public void setOrganisateur(List<Participant> participants) {
-		this.organisateur = extractOrganisateur(participants); 
-	}
-
 }
