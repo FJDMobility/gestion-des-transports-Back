@@ -5,11 +5,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,10 +43,10 @@ public class PassagerController {
 	}
 
 	@DeleteMapping("{id}")
-	public CovoiturageDto deleteReservation(Authentication authentication, @PathVariable("id") Integer covoiturageId)
+	public ResponseEntity<String> deleteReservation(Authentication authentication, @PathVariable("id") Integer covoiturageId)
 			throws CovoiturageNotFoundException {
-		CovoiturageDto covoiturageDTO = passagerService.annulerReservation(authentication, covoiturageId);
-		return covoiturageDTO;
+		System.out.println("idCovoiturage to delete : "+covoiturageId);
+		return passagerService.annulerReservation(authentication, covoiturageId);
 	}
 
 	@GetMapping("/covoiturages")
@@ -59,5 +61,11 @@ public class PassagerController {
 		}
 		return passagerService.searchByVilles(authentication,villeDepart, villeArrivee);
 	}
-
+	
+	@PostMapping("select/{id}")
+	public ResponseEntity<String> selectReservationByIdCovoiturage(Authentication authentication, @PathVariable("id") Integer idCovoiturage) {
+		System.out.println("ma reservation dans covoiturage , id : "+idCovoiturage);		
+		return passagerService.reserverCovoiturage(authentication,idCovoiturage);
+	}
+	
 }

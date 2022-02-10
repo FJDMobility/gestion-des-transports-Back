@@ -3,6 +3,7 @@ package fr.diginamic.gestiondestransportsBack.controller.rest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,9 +39,9 @@ public class OrganisateurController {
 	}
 	
 	@DeleteMapping("{id}")
-	public CovoiturageDto deleteReservation(Authentication authentication, @PathVariable("id") Integer covoiturageId) throws CovoiturageNotFoundException {		
-		CovoiturageDto covoiturageDTO = passagerService.annulerReservation(authentication, covoiturageId);
-		return covoiturageDTO;
+	public ResponseEntity<String> deleteReservation(Authentication authentication, @PathVariable("id") Integer covoiturageId) throws CovoiturageNotFoundException {		
+		return passagerService.annulerReservation(authentication, covoiturageId);
+	
 	}
 	
 	
