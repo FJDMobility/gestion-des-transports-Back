@@ -35,9 +35,9 @@ public class GestionDesTransportsBackApplication implements ApplicationRunner {
 	@Autowired
 	CrudVoiture cv;
 	@Autowired 
-	CrudDeplacement cd;
+	CrudDeplacement crudDeplacement;
 	@Autowired 
-	CrudParticipant cpa;
+	CrudParticipant crudParticipant;
 	@Autowired 
 	CrudRole cr;
 	@Autowired
@@ -83,9 +83,9 @@ public class GestionDesTransportsBackApplication implements ApplicationRunner {
 		Deplacement d2 = new Covoiturage(2, new Date(121,11,26), v1, "Lyon", "Montpellier", 5);
 		Deplacement d3 = new Covoiturage(3, new Date(121,11,29), v3, "Montpellier", "Nimes", 4);
 		
-		cd.save(d1);
-		cd.save(d2);
-		cd.save(d3);
+		crudDeplacement.save(d1);
+		crudDeplacement.save(d2);
+		crudDeplacement.save(d3);
 		
 		
 		Participant pa1 = new Participant(1, RolePerson.ORGANISATEUR, p1, d1);
@@ -104,20 +104,20 @@ public class GestionDesTransportsBackApplication implements ApplicationRunner {
 		Participant pa12 = new Participant(12, RolePerson.PASSAGER, p2, d3);
 		
 		
-		cpa.save(pa1);
-		cpa.save(pa2);
-		cpa.save(pa3);
-		cpa.save(pa4);
+		crudParticipant.save(pa1);
+		crudParticipant.save(pa2);
+		crudParticipant.save(pa3);
+		crudParticipant.save(pa4);
 		
-		cpa.save(pa5);
-		cpa.save(pa6);
-		cpa.save(pa7);
-		cpa.save(pa8);
+		crudParticipant.save(pa5);
+		crudParticipant.save(pa6);
+		crudParticipant.save(pa7);
+		crudParticipant.save(pa8);
 		
-		cpa.save(pa9);
-		cpa.save(pa10);
-		cpa.save(pa11);
-		cpa.save(pa12);
+		crudParticipant.save(pa9);
+		crudParticipant.save(pa10);
+		crudParticipant.save(pa11);
+		crudParticipant.save(pa12);
 		
 		
 		Role r1 = new Role(1,"ADMIN");
@@ -131,6 +131,15 @@ public class GestionDesTransportsBackApplication implements ApplicationRunner {
 		
 		cu.save(u1);
 		cu.save(u2);
+		
+		
+		// Data for tests 
+		
+		Deplacement d7 = new Covoiturage(4, new Date(122,01,25), v3, "Montpellier", "Marseille", 5);
+		crudDeplacement.save(d7);
+		
+		Participant par1 = new Participant(13, RolePerson.ORGANISATEUR, p1, d7);
+		crudParticipant.save(par1);
 		
 	}
 

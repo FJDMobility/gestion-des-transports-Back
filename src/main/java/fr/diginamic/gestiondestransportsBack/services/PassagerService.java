@@ -2,11 +2,12 @@ package fr.diginamic.gestiondestransportsBack.services;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,11 +16,9 @@ import fr.diginamic.gestiondestransportsBack.cruds.CrudCovoiturage;
 import fr.diginamic.gestiondestransportsBack.cruds.CrudParticipant;
 import fr.diginamic.gestiondestransportsBack.cruds.CrudUser;
 import fr.diginamic.gestiondestransportsBack.dto.CovoiturageDto;
-import fr.diginamic.gestiondestransportsBack.exceptions.CovoiturageNotFoundException;
 import fr.diginamic.gestiondestransportsBack.modeles.Covoiturage;
 import fr.diginamic.gestiondestransportsBack.modeles.Participant;
 import fr.diginamic.gestiondestransportsBack.modeles.Personne;
-import fr.diginamic.gestiondestransportsBack.modeles.User;
 import fr.diginamic.gestiondestransportsBack.modeles.enums.RolePerson;
 import fr.diginamic.gestiondestransportsBack.security.MyUserDetails;
 import fr.diginamic.gestiondestransportsBack.utils.ModeleExtractor;
@@ -49,18 +48,20 @@ public class PassagerService {
 		return mapToCovoiturageDto(covoiturage);
 	}
 
-	public CovoiturageDto annulerReservation(Authentication authentication, Integer covoiturageId) {
+	public ResponseEntity<String> annulerReservation(Authentication authentication, Integer covoiturageId) {
 		
 		// Delete personne from Participant Table 
 		Personne currentPersonne = MyUserDetails.getCurrentUser(authentication).getPersonne();
-		Covoiturage covoiturage = crudCovoiturage.findById(covoiturageId).get();		
+		System.out.println("id Personne : "+ currentPersonne.getId());
+		Covoiturage covoiturage = crudCovoiturage.findById(covoiturageId).get();
+		System.out.println("id Covoiturage :" +covoiturage.getId() +" "+covoiturage.getVilleDepart());
 		crudParticipant.deleteByPersonAndCovoiturage(currentPersonne, covoiturage);
 		
 		// Update Nb Places disponibles 
 		covoiturage.setNbPlacesDisponibles(covoiturage.getNbPlacesDisponibles() + 1);
-		Covoiturage covoiturageUpdated = crudCovoiturage.save(covoiturage);
+		crudCovoiturage.save(covoiturage);
 		
-		return mapToCovoiturageDto(covoiturageUpdated);
+		return new ResponseEntity<>("Annulation ok! ",HttpStatus.OK);
 	}
 
 	public List<CovoiturageDto> searchByVillesAndDate(Authentication authentication, String villeDepart,
@@ -97,6 +98,24 @@ public class PassagerService {
 		Set<Participant> participants = crudParticipant.getParticipantByCovoiturage(covoiturage);
 		covoiturage.setParticipants(participants);
 		return covoiturage;
+	}
+
+	public ResponseEntity<String> reserverCovoiturage(Authentication authentication, Integer idCovoiturage) {
+		Personne currentPersonne = MyUserDetails.getCurrentUser(authentication).getPersonne();
+		Covoiturage covoiturageSelected = crudCovoiturage.findById(idCovoiturage).get(); 
+		Participant particpant = new Participant();
+		
+		// Créer un emplacement dans la table Participant
+		particpant.setDeplacement(covoiturageSelected);
+		particpant.setPersonne(currentPersonne);
+		particpant.setRolePersonne(RolePerson.PASSAGER);
+		crudParticipant.save(particpant);
+		
+		// Réduire le nombre de places disponible 
+		covoiturageSelected.setNbPlacesDisponibles(covoiturageSelected.getNbPlacesDisponibles()-1);
+		crudCovoiturage.save(covoiturageSelected);
+		return new ResponseEntity<>("Resrvation ok! ",HttpStatus.CREATED);
+		
 	}
 
 }

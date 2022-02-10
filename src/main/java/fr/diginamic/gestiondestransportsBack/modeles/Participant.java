@@ -27,7 +27,7 @@ public class Participant {
 	@JoinColumn(name = "idDeplacement")
 	private Deplacement deplacement;
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.DETACH)
 	@JoinColumn(name = "idPerson")
 	private Personne personne;
 	
