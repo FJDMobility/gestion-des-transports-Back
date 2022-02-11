@@ -20,4 +20,9 @@ public interface CrudParticipant extends CrudRepository<Participant, Integer>{
 	@Query("SELECT pa FROM Participant pa WHERE pa.deplacement = :covoiturage")
 	Set<Participant> getParticipantByCovoiturage(Covoiturage covoiturage);
 
+	
+	@Modifying
+	@Query("DELETE FROM Participant pa WHERE pa.deplacement= :covoiturage")
+	void deleteByCovoiturage(Covoiturage covoiturage);
+
 }
