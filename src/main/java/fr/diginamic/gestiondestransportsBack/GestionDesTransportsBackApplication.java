@@ -62,6 +62,18 @@ public class GestionDesTransportsBackApplication implements ApplicationRunner {
 		Personne p5 = new Personne("SADIO", "MANE", new Date(94, 11, 21), "sadio.mane@hotmail.fr");
 		Personne p6 = new Personne("HARVEY", "ELLIOT", new Date(199, 1, 2), "harvey.elliot@hotmail.fr");
 		Personne p7 = new Personne("CURTIS", "JONES", new Date(111, 6, 6), "curtis.jones@hotmail.fr");
+		Personne p8 = new Personne("MOURRIER", "DENIS", new Date(111, 6, 6), "denysos34@hotmail.fr");
+		Personne p9 = new Personne("LANDOLSI", "JASSER", new Date(111, 6, 6), "ljasser@hotmail.fr");
+		Personne p10 = new Personne("GARCIA", "JOSE", new Date(111, 6, 6), "j.garcia@hotmail.fr");		
+		Personne p11 = new Personne("ETCHEBEST", "PHILLIPE", new Date(111, 6, 6), "etchebest.phillipe@hotmail.fr");
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		cp.save(p1);
 		cp.save(p2);

@@ -67,7 +67,7 @@ public class PassagerService {
 	public List<CovoiturageDto> searchByVillesAndDate(Authentication authentication, String villeDepart,
 			String villeArrivee, Date dateDepart) {
 		List<Covoiturage> covoiturages = crudCovoiturage.findByVillesAndDate(villeDepart, villeArrivee, dateDepart);
-		List<CovoiturageDto> covoituragesDto = covoiturages.stream()
+		List<CovoiturageDto> covoituragesDto = covoiturages.stream().filter(covoiturage -> covoiturage.getNbPlacesDisponibles()>0)
 				.map(covoiturage -> mapToCovoiturageDto(covoiturage)).collect(Collectors.toList());
 		return covoituragesDto;
 	}
@@ -76,28 +76,11 @@ public class PassagerService {
 		Personne personne = MyUserDetails.getCurrentUser(authentication).getPersonne();
 		List<Covoiturage> covoiturages = crudCovoiturage.findByVilles(villeDepart, villeArrivee);
 		List<CovoiturageDto> covoituragesDto = covoiturages.stream()
+				.filter(covoiturage -> covoiturage.getNbPlacesDisponibles()>0)
 				.filter(covoiturage -> filterPersonneDifferentToUser(covoiturage, personne))
 				.map(covoiturage -> mapToCovoiturageDto(covoiturage)).collect(Collectors.toList());
 		return covoituragesDto;
 
-	}
-
-	private boolean filterPersonneDifferentToUser(Covoiturage covoiturage, Personne personne) {
-		return covoiturage.getParticipants().stream().anyMatch(participant -> participant.getPersonne() == personne);
-	}
-
-	private CovoiturageDto mapToCovoiturageDto(Covoiturage covoiturage) {
-		CovoiturageDto covoiturageDto = new CovoiturageDto(covoiturage);
-		covoiturageDto.setParticipant(ModeleExtractor.extractPassagerFromParticipant(covoiturage.getParticipants()));
-		covoiturageDto
-				.setOrganisateur(ModeleExtractor.extractOrganisateurFromParticipant(covoiturage.getParticipants()));
-		return covoiturageDto;
-	}
-
-	private Covoiturage addFullParticipants(Covoiturage covoiturage) {
-		Set<Participant> participants = crudParticipant.getParticipantByCovoiturage(covoiturage);
-		covoiturage.setParticipants(participants);
-		return covoiturage;
 	}
 
 	public ResponseEntity<String> reserverCovoiturage(Authentication authentication, Integer idCovoiturage) {
@@ -116,6 +99,24 @@ public class PassagerService {
 		crudCovoiturage.save(covoiturageSelected);
 		return new ResponseEntity<>("Resrvation ok! ",HttpStatus.CREATED);
 		
+	}
+	
+	private boolean filterPersonneDifferentToUser(Covoiturage covoiturage, Personne personne) {
+		return covoiturage.getParticipants().stream().anyMatch(participant -> participant.getPersonne() == personne);
+	}
+
+	private CovoiturageDto mapToCovoiturageDto(Covoiturage covoiturage) {
+		CovoiturageDto covoiturageDto = new CovoiturageDto(covoiturage);
+		covoiturageDto.setParticipant(ModeleExtractor.extractPassagerFromParticipant(covoiturage.getParticipants()));
+		covoiturageDto
+				.setOrganisateur(ModeleExtractor.extractOrganisateurFromParticipant(covoiturage.getParticipants()));
+		return covoiturageDto;
+	}
+
+	private Covoiturage addFullParticipants(Covoiturage covoiturage) {
+		Set<Participant> participants = crudParticipant.getParticipantByCovoiturage(covoiturage);
+		covoiturage.setParticipants(participants);
+		return covoiturage;
 	}
 
 }
